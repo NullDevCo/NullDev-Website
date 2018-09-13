@@ -1,25 +1,25 @@
 "use strict";
 
-//=========================//
-//= Copyright (c) NullDev =//
-//=========================//
+// ========================= //
+// = Copyright (c) NullDev = //
+// ========================= //
 
 let url  = require("url");
 let i18n = require("i18n");
 
 let getRoutes = require("./getRoutes");
-let log       = require("../utils/logger");
-let conf      = require("../utils/configHandler");
+let log = require("../utils/logger");
+let conf = require("../utils/configHandler");
 
 let config = conf.getConfig();
 
 let isset = function(obj){
-    return !!(obj && obj !== null && (typeof obj === 'string' || typeof obj === 'number' && obj !== "") || obj === 0);
+    return !!(obj && obj !== null && (typeof obj === "string" || typeof obj === "number" && obj !== "") || obj === 0);
 };
 
 module.exports = function(app){
     app.use(function(req, res, next){
-        //log("IP " + req.ip + " requested route '" + url.parse(req.url).pathname + "'");
+        // log("IP " + req.ip + " requested route '" + url.parse(req.url).pathname + "'");
 
         if (isset(req.query.locale)){
             res.cookie(config.server.cookie_prefix + "lang", req.query.locale, { maxAge: 900000, httpOnly: true });

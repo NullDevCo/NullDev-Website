@@ -1,10 +1,10 @@
 "use strict";
 
-//=========================//
-//= Copyright (c) NullDev =//
-//=========================//
+// ========================= //
+// = Copyright (c) NullDev = //
+// ========================= //
 
-let fs   = require("fs");
+let fs = require("fs");
 let path = require("path");
 
 let log = require("./logger");
@@ -12,7 +12,7 @@ let log = require("./logger");
 const packagefile = require("../../package.json");
 const configPath  = path.resolve("config.json");
 
-console.log(configPath)
+console.log(configPath);
 
 let validJson = function(obj){
     try { JSON.parse(obj); }
@@ -35,19 +35,25 @@ let getconfig = function(){
 
     if (validJson(jsondata)) return JSON.parse(jsondata);
 
-    else {
-        log.error("Config is not valid JSON. Stopping...");
-        process.exit(1);
-    }
+    log.error("Config is not valid JSON. Stopping...");
+    process.exit(1);
 };
 
-let getVersion = function(){ return packagefile.version; };
-let getName    = function(){ return packagefile.name;    };
-let getAuthor  = function(){ return packagefile.author;  };
+let getVersion = function(){
+    return packagefile.version;
+};
+
+let getName = function(){
+    return packagefile.name;
+};
+
+let getAuthor = function(){
+    return packagefile.author;
+};
 
 module.exports = {
-    getConfig:  getconfig,
+    getConfig: getconfig,
     getVersion: getVersion,
-    getName:    getName,
-    getAuthor:  getAuthor
+    getName: getName,
+    getAuthor: getAuthor
 };

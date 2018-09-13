@@ -1,31 +1,28 @@
 "use strict";
 
-//=========================//
-//= Copyright (c) NullDev =//
-//=========================//
+// ========================= //
+// = Copyright (c) NullDev = //
+// ========================= //
 
-let getRouteMethods = function (route){
+let getRouteMethods = function(route){
     let methods = [];
     for (let method in route.methods){
         if (method === "_all") continue;
         methods.push(method.toUpperCase());
     }
     return methods;
-}
+};
 
-let hasParams = function (value){
+let hasParams = function(value){
     let regExp = /\(\?:\(\[\^\\\/]\+\?\)\)/g;
     return regExp.test(value);
-}
+};
 
-let getRoutes = function (app, path, endpoints) {
+let getRoutes = function(app, path = [], endpoints = []){
     let regExp = /^\/\^\\\/(?:(:?[\w\\.-]*(?:\\\/:?[\w\\.-]*)*)|(\(\?:\(\[\^\\\/]\+\?\)\)))\\\/.*/;
     let stack = app.stack || (app._router && app._router.stack);
 
-    endpoints = endpoints || [];
-    path = path || "";
-
-    stack.forEach(function (val){
+    stack.forEach(function(val){
         if (val.route){
             endpoints.push({
                 path: path + (path && val.route.path === "/" ? "" : val.route.path),
@@ -33,15 +30,15 @@ let getRoutes = function (app, path, endpoints) {
             });
         }
         else if (val.name === "router" || val.name === "bound dispatch"){
-            let newPath = regExp.exec(val.regexp)
+            let newPath = regExp.exec(val.regexp);
 
-            if (newPath) {
+            if (newPath){
                 let parsedRegexp = val.regexp;
                 let keyIndex = 0;
                 let parsedPath;
 
                 while (hasParams(parsedRegexp)){
-                    parsedRegexp = parsedRegexp.toString().replace(/\(\?:\(\[\^\\\/]\+\?\)\)/, ':' + val.keys[keyIndex].name);
+                    parsedRegexp = parsedRegexp.toString().replace(/\(\?:\(\[\^\\\/]\+\?\)\)/, ":" + val.keys[keyIndex].name);
                     keyIndex++;
                 }
 
@@ -57,6 +54,6 @@ let getRoutes = function (app, path, endpoints) {
         }
     });
     return endpoints;
-}
+};
 
 module.exports = getRoutes;
