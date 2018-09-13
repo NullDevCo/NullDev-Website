@@ -1,17 +1,18 @@
 "use strict";
 
-//=========================//
-//= Copyright (c) NullDev =//
-//=========================//
+// ========================= //
+// = Copyright (c) NullDev = //
+// ========================= //
 
-let path    = require("path");
+let path = require("path");
 let express = require("express");
 let favicon = require("serve-favicon");
-let i18n    = require("i18n");
+let i18n = require("i18n");
 let cookieP = require("cookie-parser");
 
 let conf = require("./utils/configHandler");
-let log  = require("./utils/logger");
+let log = require("./utils/logger");
+let meta = require("./utils/meta");
 
 let version = conf.getVersion();
 let appname = conf.getName();
@@ -30,6 +31,13 @@ console.log(
 let app = express();
 
 log.info("Started.");
+
+meta(function(data){
+    log.info(`Environment: '${data.environment}'`);
+    log.info(`NodeJS Version: ${data.nodeversion}`);
+    log.info(`Operating System: ${data.os}`);
+    log.info(`Server IP: ${data.ip}`);
+});
 
 let config = conf.getConfig();
 
@@ -59,8 +67,8 @@ app.set("view engine", "ejs");
 app.set("port", appPort);
 
 app.use(cookieP());
-//app.use(express.static("./assets"));
-//app.use(favicon("./assets/favicon.ico"));
+// app.use(express.static("./assets"));
+// app.use(favicon("./assets/favicon.ico"));
 app.use(i18n.init);
 
 require("./routes/router")(app);
