@@ -4,7 +4,6 @@
 // = Copyright (c) NullDev = //
 // ========================= //
 
-let path = require("path");
 let express = require("express");
 let favicon = require("serve-favicon");
 let i18n = require("i18n");
@@ -67,8 +66,8 @@ app.set("view engine", "ejs");
 app.set("port", appPort);
 
 app.use(cookieP());
-// app.use(express.static("./assets"));
-// app.use(favicon("./assets/favicon.ico"));
+app.use(express.static("./assets/static"));
+app.use(favicon("./assets/static/img/favicon.ico"));
 app.use(i18n.init);
 
 require("./routes/router")(app);
