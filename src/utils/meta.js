@@ -26,7 +26,7 @@ let getIp = function(){
 module.exports = function(callback){
     let metadata = {};
 
-    metadata.environmen = env;
+    metadata.environment = env;
     metadata.nodeversion = nodev;
     metadata.os = osinfo;
     metadata.ip = getIp();
