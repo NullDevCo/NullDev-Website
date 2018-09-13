@@ -4,7 +4,7 @@
 // = Copyright (c) NullDev = //
 // ========================= //
 
-let url  = require("url");
+let url = require("url");
 let i18n = require("i18n");
 
 let getRoutes = require("./getRoutes");
