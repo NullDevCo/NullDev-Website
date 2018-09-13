@@ -4,7 +4,8 @@
   "description": "The official nulldev website",
   "main": "src/app.js",
   "scripts": {
-
+    "start": "cross-env NODE_ENV=production node ./src/app.js",
+    "dev": "cross-env NODE_ENV=development node ./src/app.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "eslint": "^5.2.0"
   }
 }
