@@ -36,7 +36,7 @@ let getconfig = function(){
     if (validJson(jsondata)) return JSON.parse(jsondata);
 
     log.error("Config is not valid JSON. Stopping...");
-    process.exit(1);
+    return process.exit(1);
 };
 
 let getVersion = function(){
