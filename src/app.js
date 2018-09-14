@@ -10,6 +10,7 @@ let express = require("express");
 let favicon = require("serve-favicon");
 let i18n = require("i18n");
 let cookieP = require("cookie-parser");
+let minify = require("express-minify");
 
 let conf = require("./utils/configHandler");
 let log = require("./utils/logger");
@@ -69,9 +70,10 @@ app.set("port", appPort);
 app.set("views", path.join(__dirname, "views"));
 
 app.use(cookieP());
-app.use(express.static("./src/assets/static"));
 app.use(favicon("./src/assets/static/img/favicon.png"));
 app.use(i18n.init);
+app.use(minify());
+app.use(express.static("./src/assets/static"));
 
 require("./routes/router")(app);
 
