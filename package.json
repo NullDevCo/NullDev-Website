@@ -21,6 +21,7 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-minify": "^1.0.0",
     "i18n": "^0.8.3",
     "serve-favicon": "^2.5.0"
   },
