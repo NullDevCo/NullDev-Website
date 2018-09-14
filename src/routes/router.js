@@ -4,7 +4,6 @@
 // = Copyright (c) NullDev = //
 // ========================= //
 
-let url = require("url");
 let i18n = require("i18n");
 
 let getRoutes = require("./getRoutes");
@@ -27,21 +26,31 @@ module.exports = function(app){
             res.redirect(req.originalUrl.split("?").shift());
         }
 
-        if (isset(req.cookies._stilang)) i18n.setLocale(req.cookies._stilang);
+        if (isset(req.cookies[config.server.cookie_prefix])) i18n.setLocale(req.cookies[config.server.cookie_prefix]);
 
         next();
     });
 
-    app.get("/", function(req, res){
+    app.get("/", (req, res) => {
+        let currentLocale = i18n.getLocale(req);
+        res.render("index", {
+            "currentLanguage": currentLocale,
+            "routeTitle": "Home",
+            "route": req.path
+        });
+    });
+
+    app.get("/robots.txt", (req, res) => {
 
     });
 
-    app.get("/robots.txt", function(req, res){
-
-    });
-
-    app.get("*", function(req, res){
-
+    app.get("*", (req, res) => {
+        let currentLocale = i18n.getLocale(req);
+        res.render("errors/404", {
+            "currentLanguage": currentLocale,
+            "routeTitle": "Not found!",
+            "route": req.path
+        });
     });
 
     let routes = getRoutes(app);
