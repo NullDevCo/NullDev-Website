@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/app.js",
-    "dev": "cross-env NODE_ENV=development node ./src/app.js"
+    "lint": "eslint ./src",
+    "dev": "npm run lint && cross-env NODE_ENV=development node ./src/app.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/NullDevCo/NullDev-Website/issues"
   },
-  "homepage": "https://github.com/NullDevCo/NullDev-Website#readme",
+  "homepage": "https://nulldev.org",
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
