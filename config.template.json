@@ -2,5 +2,12 @@
     "server": {
         "port": 3000,
         "cookie_prefix": "_nl"
+    },
+    "meta": {
+        "name": "NullDev",
+        "info": "Where AI comes to live. Machine learning, Artificial Intelligence and Programming projects",
+        "color": "#48B372",
+        "domain": "nulldev.org",
+        "protocol": "https"
     }
 }

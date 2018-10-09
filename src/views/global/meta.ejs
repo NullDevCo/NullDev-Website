@@ -1,10 +1,12 @@
 <%  
-    let name = "NullDev";
-    let info = "Where AI comes to live. Machine learning, Artificial Intelligence and Programming projects";
-    let color = "#48B372";
+    let config = conf.getConfig();
 
-    let domain = "nulldev.org";
-    let protocol = "https";
+    let name = config.meta.name;
+    let info = config.meta.info;
+    let color = config.meta.color;
+
+    let domain = config.meta.domain;
+    let protocol = config.meta.protocol;
 %>
         <meta charset="utf-8">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
@@ -32,3 +34,7 @@
         <meta property="og:site_name" content="<%= name %>"/>
 
         <link rel="canonical" href="<%= protocol %>://<%= domain %><%= route %>" />
+
+        <!-- // ========================= // -->
+        <!-- // = Copyright (c) NullDev = // -->
+        <!-- // ========================= // -->

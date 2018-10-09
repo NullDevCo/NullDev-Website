@@ -36,7 +36,8 @@ module.exports = function(app){
         res.render("index", {
             "currentLanguage": currentLocale,
             "routeTitle": "Home",
-            "route": req.path
+            "route": req.path,
+            "conf": conf
         });
     });
 
