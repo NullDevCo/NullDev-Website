@@ -10,6 +10,9 @@ let getRoutes = require("./getRoutes");
 let log = require("../utils/logger");
 let conf = require("../utils/configHandler");
 
+// Modules
+let robots = require("./modules/robots");
+
 let config = conf.getConfig();
 
 let isset = function(obj){
@@ -42,7 +45,7 @@ module.exports = function(app){
     });
 
     app.get("/robots.txt", (req, res) => {
-
+        robots(req, res);
     });
 
     app.get("*", (req, res) => {
@@ -50,7 +53,8 @@ module.exports = function(app){
         res.render("errors/404", {
             "currentLanguage": currentLocale,
             "routeTitle": "Not found!",
-            "route": req.path
+            "route": req.path,
+            "conf": conf
         });
     });
 
