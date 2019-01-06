@@ -24,8 +24,10 @@ let getRoutes = function(app, path = [], endpoints = []){
 
     stack.forEach(function(val){
         if (val.route){
+            let pathFinal = path + (path && val.route.path === "/" ? "" : val.route.path);
+            if (pathFinal.replace(/\s/g, "") === "") pathFinal = "/";
             endpoints.push({
-                path: path + (path && val.route.path === "/" ? "" : val.route.path),
+                path: pathFinal,
                 methods: getRouteMethods(val.route)
             });
         }
@@ -48,6 +50,7 @@ let getRoutes = function(app, path = [], endpoints = []){
 
                 if (parsedPath === ":postId/sub-router") console.log(val);
 
+                // @ts-ignore
                 getRoutes(val.handle, path + "/" + parsedPath, endpoints);
             }
             else getRoutes(val.handle, path, endpoints);
