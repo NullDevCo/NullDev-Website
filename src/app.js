@@ -4,14 +4,23 @@
 // = Copyright (c) NullDev = //
 // ========================= //
 
+// Core Modules
 let path = require("path");
 
+// Dependencies
 let express = require("express");
 let favicon = require("serve-favicon");
-let i18n = require("i18n");
-let cookieP = require("cookie-parser");
 let minify = require("express-minify");
+let bodyParser = require("body-parser");
+let validator = require("express-validator");
+let cookieParser = require("cookie-parser");
+let session = require("express-session");
+let flash = require("express-flash");
+let MemoryStore = require("memorystore")(session);
+let helmet = require("helmet");
+let csrf = require("csurf");
 
+// Utils
 let conf = require("./utils/configHandler");
 let log = require("./utils/logger");
 let meta = require("./utils/meta");
@@ -24,15 +33,15 @@ let splashPadding = 12 + appname.length + version.toString().length;
 
 console.log(
     "\n" +
-    " #" + "-".repeat(splashPadding) + "#\n" +
-    " # Started " + appname + " v" + version + " #\n" +
-    " #" + "-".repeat(splashPadding) + "#\n\n" +
-    " Copyright (c) " + (new Date()).getFullYear() + " " + devname + "\n"
+    ` #${"-".repeat(splashPadding)}#\n` +
+    ` # Started ${appname} v${version} #\n` +
+    ` #${"-".repeat(splashPadding)}#\n\n` +
+    ` Copyright (c) ${(new Date()).getFullYear()} ${devname}\n`
 );
 
 let app = express();
 
-log.info("Started.");
+log.done("Started.");
 
 meta(function(data){
     log.info(`Environment: '${data.environment}'`);
@@ -43,23 +52,34 @@ meta(function(data){
 
 let config = conf.getConfig();
 
-i18n.configure({
-    directory: "./src/languages",
-    cookie: config.server.cookie_prefix + "lang",
-    defaultLocale: "en",
-    queryParameter: "lang",
-    updateFiles: false,
-    autoReload: true,
-});
+let sess = {
+    secret: config.session.secret,
+    key: config.session.key,
+    // @ts-ignore
+    store: new MemoryStore({
+        checkPeriod: 86400000
+    }),
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: config.session.maxage
+    }
+};
 
-app.locals.languages = Object.keys(i18n.getCatalog());
+let bodyParserConf = {
+    extended: true
+};
+
+let csrfParserConf = {
+    cookie: true
+};
 
 const appPort = config.server.port || 3000;
 
 if (!config.server.port) log.warn("No port specified. Using default: 3000");
 
 if (appPort < 1 || appPort > 65535){
-    log.error("Invalid port specified: " + appPort + "\nStopping...");
+    log.error(`Invalid port specified: ${appPort}\nStopping...`);
     process.exit(1);
 }
 
@@ -69,18 +89,27 @@ app.set("view engine", "ejs");
 app.set("port", appPort);
 app.set("views", path.join(__dirname, "views"));
 
-app.use(cookieP());
+app.use(helmet());
+app.use(bodyParser.urlencoded(bodyParserConf));
+app.use(session(sess));
+app.use(validator());
+app.use(cookieParser());
+app.use(csrf(csrfParserConf));
+app.use(flash());
 app.use(favicon("./src/assets/static/img/favicon.png"));
-app.use(i18n.init);
 app.use(minify());
 app.use(express.static("./src/assets/static"));
 
 require("./routes/router")(app);
 
+process.on("unhandledRejection", function(err, promise){
+    log.error(`Unhandled rejection (promise: ${promise}, reason: ${err})`);
+});
+
 app.listen(app.get("port"), function(err){
     if (err){
-        log.error("Error on port " + app.get("port") + ": " + err);
+        log.error(`Error on port ${app.get("port")}: ${err}`);
         process.exit(1);
     }
-    log.info("Listening on port " + app.get("port") + "...");
+    log.info(`Listening on port ${app.get("port")}...`);
 });
