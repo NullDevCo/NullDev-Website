@@ -1,7 +1,6 @@
 {
     "server": {
-        "port": 3000,
-        "cookie_prefix": "_nl"
+        "port": 3000
     },
     "meta": {
         "name": "NullDev",
@@ -9,5 +8,10 @@
         "color": "#48B372",
         "domain": "nulldev.org",
         "protocol": "https"
+    },
+    "session": {
+        "secret": "",
+        "key": "",
+        "maxage": 60000
     }
 }
