@@ -16,17 +16,25 @@ let config = conf.getConfig();
  * @param {*} res
  * @param {*} routes
  */
-module.exports = function(req, res, routes){
+module.exports = function(req, res, routesRaw){
     res.type("text/xml");
 
     /* eslint-disable quotes */
 
+    let routes = [];
+    for (let route of routesRaw) routes.push(route.path);
+
+    // Remove duplicated routes (GET/POST)
+    routes = routes.filter((elem, pos) => {
+        return routes.indexOf(elem) === pos;
+    });
+
     let routeString = "";
     for (let route of routes){
-        if (route.path === "*") continue;
+        if (route === "*") continue;
 
         routeString += `    <url>\n` +
-                       `        <loc>${config.meta.protocol}://${config.meta.domain}${route.path}</loc>\n` +
+                       `        <loc>${config.meta.protocol}://${config.meta.domain}${route}</loc>\n` +
                        `        <changefreq>monthly</changefreq>\n` +
                        `    </url>\n`;
     }
