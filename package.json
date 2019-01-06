@@ -19,11 +19,17 @@
   },
   "homepage": "https://nulldev.org",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-flash": "0.0.2",
     "express-minify": "^1.0.0",
-    "i18n": "^0.8.3",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "helmet": "^3.15.0",
+    "memorystore": "^1.6.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
