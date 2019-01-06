@@ -1,7 +1,26 @@
-        <footer>
-            Footer
-        </footer>
-        <script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="/js/main.js"></script>
+<%  
+    let config = conf.getConfig();
+
+    let name = config.meta.name;
+    let url  = config.meta.domain;
+    
+    let year = (new Date()).getFullYear();
+%>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a class="btn btn-primary" id="toTop"> 
+                            <i class="fa fa-arrow-up"></i> 
+                        </a>
+                    </div> 
+                    <footer class="footer">
+                        Copyright &copy; <%= year %> <%= name %>
+                        <a class="pull-right" href="/"><%= url %></a>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <script src="/lib/jquery-3.3.1.min.js"></script>
+        <script src="/js/main.js"></script>
     </body>
 </html>

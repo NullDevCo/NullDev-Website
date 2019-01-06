@@ -1,5 +1,16 @@
 <%- include("global/header"); -%>
-        <main>
-            Home
-        </main>
+<%  
+    let config = conf.getConfig();
+
+    let name = config.meta.name;
+%>
+                            <ol class="breadcrumb"> 
+                                <li>
+                                    <a href="<%= route %>"><%= name %> /</a>
+                                </li>
+                            </ol>
+                            <div class="main-content">
+                                <h1 class="page-header">NullDev</h1>
+                                <p>Content </p>
+                            </div>
 <%- include("global/footer"); -%>
