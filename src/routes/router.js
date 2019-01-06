@@ -59,6 +59,7 @@ module.exports = function(app){
 
         else {
             let formData = matchedData(req);
+            console.log(formData);
 
             req.flash("success", "Message has been delivered. I'll reply as soon as possible!");
             res.redirect(req.originalUrl);
@@ -86,7 +87,7 @@ module.exports = function(app){
     });
 
     // 500
-    app.use((err, req, res, next) => {
+    app.use((err, req, res) => {
         log.error(err.stack);
         res.render("errors/500", {
             "routeTitle": "Internal Server Error!",
