@@ -4,38 +4,44 @@
     let name = config.meta.name;
     let info = config.meta.info;
     let color = config.meta.color;
-
     let domain = config.meta.domain;
     let protocol = config.meta.protocol;
+
+    let year = (new Date()).getFullYear();
 %>
         <meta charset="utf-8">
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="renderer" content="webkit">
+        <meta name="robots" content="index,follow">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="apple-mobile-web-app-title" content="<%= name %>">
+        <meta name="google" value="notranslate">
         
+        <meta content="authenticity_token" name="csrf-param">
+        <meta content="<%= csrfToken %>" name="csrf-token">
+
         <title><%= name %> | <%= routeTitle %></title>
         <meta name="title" content="<%= name %> | <%= routeTitle %>">
         <meta name="description" content="<%= info %>">
-        <meta name="application-name" content="<%= name %> CMS" />
-        <meta name="author" content="<%= name %>" />
+        <meta name="application-name" content="<%= name %> CMS">
+        <meta name="author" content="<%= name %>">
         
         <meta name="msapplication-TileColor" content="<%= color %>">
         <meta name="msapplication-TileImage" content="/img/favicon.png">
         <meta name="theme-color" content="<%= color %>">
 
-        <meta itemprop="name" content="<%= name %>">
-        <meta itemprop="description" content="<%= info %>">
-
-        <meta name="twitter:card" content="summary_large_image"/>
-        <meta name="twitter:title" content="<%= name %>"/>
-        <meta name="twitter:description" content="<%= info %>"/>
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="<%= name %>">
+        <meta name="twitter:description" content="<%= info %>">
 
         <meta property="og:title" content="<%= name %>">
         <meta property="og:description" content="<%= info %>">
-        <meta property="og:site_name" content="<%= name %>"/>
+        <meta property="og:site_name" content="<%= name %>">
 
         <link rel="canonical" href="<%= protocol %>://<%= domain %><%= route %>" />
 
-        <!-- // ========================= // -->
-        <!-- // = Copyright (c) NullDev = // -->
-        <!-- // ========================= // -->
+        <!-- // ============================== // -->
+        <!-- // = Copyright (c) <%= year %> NullDev = // -->
+        <!-- // ============================== // -->
 
