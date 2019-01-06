@@ -1,0 +1,53 @@
+<%- include("global/header"); -%>
+<%  
+    let config = conf.getConfig();
+
+    let name = config.meta.name;
+
+    let breadcrumb = route.replace(/\//g, "");
+    breadcrumb = breadcrumb.charAt(0).toUpperCase() + breadcrumb.slice(1)
+%>
+                            <ol class="breadcrumb"> 
+                                <li>
+                                    <a href="<%= route %>"><%= name %> / <%= breadcrumb %></a>
+                                </li>
+                            </ol>
+                            <div class="main-content">
+                                <h1 class="page-header">NullDev Contact</h1>
+                                <div class="form-header">
+                                    <% if (Object.keys(errors).length === 0) { %>
+                                        <h2>Contact me</h2>
+                                    <% } else { %>
+                                        <h2 class="errors-heading">Please correct the following errors:</h2>
+                                        <ul class="errors-list">
+                                        <% Object.values(errors).forEach(error => { %>
+                                            <li><%= error.msg %></li>
+                                        <% }) %>
+                                        </ul>
+                                    <% } %>
+                                </div>
+                                <form method="post" action="/contact" novalidate>
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
+                                        <label for="email">Email</label>
+                                        <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
+                                        <% if (errors.email) { %>
+                                            <div class="error"><%= errors.email.msg %></div>
+                                        <% } %>
+                                    </div>
+                                    <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
+                                        <label for="message">Message</label>
+                                        <textarea class="input" id="message" name="message" rows="4" autofocus><%= data.message %></textarea>
+                                        <% if (errors.message) { %>
+                                            <div class="error"><%= errors.message.msg %></div>
+                                        <% } %>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="form-btn" type="submit">Send</button>
+                                    </div>
+                                <% if (messages.success) { %>
+                                    <div class="flash flash-success"><%= messages.success %></div>
+                                <% } %>                                      
+                                </form>
+                            </div>
+<%- include("global/footer"); -%>
