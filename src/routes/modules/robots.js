@@ -4,10 +4,17 @@
 // = Copyright (c) NullDev = //
 // ========================= //
 
+// Utils
 let conf = require("../../utils/configHandler");
 
 let config = conf.getConfig();
 
+/**
+ * Generate robots.txt
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 module.exports = function(req, res){
     let cYear = (new Date()).getFullYear();
     res.type("text/plain");
@@ -20,6 +27,18 @@ module.exports = function(req, res){
         "Disallow: /img\n" +
         "Disallow: /js\n" +
         "Disallow: /lib\n\n" +
-        "Sitemap: https://nulldev.org/sitemap.xml"
+        "User-agent: Mediapartners-Google\n" +
+        "Disallow: /\n\n" +
+        "User-agent: Spinn3r\n" +
+        "Disallow: /\n\n" +
+        "User-agent: 008\n" +
+        "Disallow: /\n\n" +
+        "User-agent: voltron\n" +
+        "Disallow: /\n\n" +
+        "User-agent: Yahoo Pipes 1.0\n" +
+        "Disallow: /\n\n" +
+        "User-agent: KSCrawler\n" +
+        "Disallow: /\n\n" +
+        "Sitemap: https://nulldev.org/sitemap.xml\n"
     );
 };
