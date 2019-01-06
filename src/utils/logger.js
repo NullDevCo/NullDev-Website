@@ -4,15 +4,20 @@
 // = Copyright (c) NullDev = //
 // ========================= //
 
+/**
+ * Formats the current time
+ *
+ * @returns {string} Time
+ */
 let getDate = function(){
     const date = new Date();
-    let hour = date.getHours();
-    let min = date.getMinutes();
-    let sec = date.getSeconds();
+    let hourData = date.getHours();
+    let minData = date.getMinutes();
+    let secData = date.getSeconds();
 
-    hour = (hour < 10 ? "0" : "") + hour;
-    min = (min  < 10 ? "0" : "") + min;
-    sec = (sec  < 10 ? "0" : "") + sec;
+    let hour = (hourData < 10 ? "0" : "") + hourData;
+    let min = (minData  < 10 ? "0" : "") + minData;
+    let sec = (secData  < 10 ? "0" : "") + secData;
 
     return "[" + hour + ":" + min + ":" + sec + "]";
 };
