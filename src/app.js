@@ -43,7 +43,7 @@ let app = express();
 
 log.done("Started.");
 
-meta(function(data){
+meta((data) => {
     log.info(`Environment: '${data.environment}'`);
     log.info(`NodeJS Version: ${data.nodeversion}`);
     log.info(`Operating System: ${data.os}`);
@@ -97,16 +97,25 @@ app.use(cookieParser());
 app.use(csrf(csrfParserConf));
 app.use(flash());
 app.use(favicon("./src/assets/static/img/favicon.png"));
+
+app.use((req, res, next) => {
+    if (/\.min\.(css|js)$/.test(req.url)){
+        res.minifyOptions = res.minifyOptions || {};
+        res.minifyOptions.minify = false;
+    }
+    next();
+});
+
 app.use(minify());
 app.use(express.static("./src/assets/static"));
 
 require("./routes/router")(app);
 
-process.on("unhandledRejection", function(err, promise){
+process.on("unhandledRejection", (err, promise) => {
     log.error(`Unhandled rejection (promise: ${promise}, reason: ${err})`);
 });
 
-app.listen(app.get("port"), function(err){
+app.listen(app.get("port"), (err) => {
     if (err){
         log.error(`Error on port ${app.get("port")}: ${err}`);
         process.exit(1);
