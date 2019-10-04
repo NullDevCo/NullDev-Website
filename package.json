@@ -6,7 +6,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./src/app.js",
     "lint": "eslint ./src",
-    "dev": "npm run lint && cross-env NODE_ENV=development node ./src/app.js"
+    "dev": "npm run lint && cross-env NODE_ENV=development node ./src/app.js",
+    "blog-build": "cd ./blogposts && rm -rf ../dist_blog && techy --dest ../dist_blog",
+    "blog-build-windows": "rd _dist /Q /S && cd blogposts && techy --dest ../dist_blog || cd blogposts && techy --dest ../dist_blog"
   },
   "repository": {
     "type": "git",
@@ -33,7 +35,9 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
+    "@types/node": "^10.12.18",
     "cross-env": "^5.2.0",
-    "eslint": "^5.2.0"
+    "eslint": "^5.2.0",
+    "techy": "^1.2.5"
   }
 }
