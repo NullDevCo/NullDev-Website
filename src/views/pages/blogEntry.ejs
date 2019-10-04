@@ -1,0 +1,18 @@
+<%- include("../layouts/header"); -%>
+<%  
+    let name = config.meta.name;
+%>
+                            <ol class="breadcrumb"> 
+                                <li>
+                                    <a href="/"><%= name %></a>
+                                    <span> / </span>
+                                    <a href="/blog">Blog</a>
+                                    <span> / </span>
+                                    <a href="/blog">Blog Post <%= blogentry %></a>
+                                </li>
+                            </ol>
+
+                            <main class="container">
+                                <%- include("../../../dist_blog/" + subfolder + blogentry + ".html"); -%>
+                            </main>
+<%- include("../layouts/footer"); -%>

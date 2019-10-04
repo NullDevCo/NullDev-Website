@@ -1,0 +1,47 @@
+<%- include("../layouts/header"); -%>
+<%  
+    let name = config.meta.name;
+%>
+                            <ol class="breadcrumb"> 
+                                <li>
+                                    <a href="/"><%= name %></a>
+                                    <span> / </span>
+                                    <a href="/blog">Blog</a>
+                                </li>
+                            </ol>
+
+                            <main class="container">
+                                <h1><%= routeTitle %></h1>
+                                <%
+                                    if (fs.existsSync(blogFolder) && fs.readdirSync(blogFolder).length > 0){
+                                    fs.readdirSync(blogFolder).reverse().forEach(file => {
+                                            let absolutPath = path.resolve(blogFolder, file);
+                                            if (fs.statSync(absolutPath).isDirectory()) return;
+
+                                            let num = file.replace(/\.html/gi, "");
+                                            let content = fs.readFileSync(absolutPath);
+
+                                            let entryData;
+                                            try {
+                                                entryData = JSON.parse(String(content).split("<!--DATA").pop().split("-->")[0]);
+                                            }
+                                            catch (e){
+                                                return log.error(`Blog entry ${num} has invalid JSON Meta!`);
+                                            }
+                                %>
+                                <a href="blog/<%= num %>">#<%= num %> - <%= entryData.title %></a>
+                                <br>
+                                <p><%= entryData.preface %></p>
+                                <p>Date: <%= entryData.date %></p>
+                                <hr>
+                                <br>
+                                <%
+                                        });
+                                    }
+                                    else {
+                                %>
+                                        <br>
+                                        <p>Currently no blog entries.</p>
+                                <% } %>
+                            </main>
+<%- include("../layouts/footer"); -%>
