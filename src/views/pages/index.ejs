@@ -1,12 +1,11 @@
-<%- include("global/header"); -%>
+<%- include("../layouts/header"); -%>
 <%  
-    let config = conf.getConfig();
-
     let name = config.meta.name;
 %>
                             <ol class="breadcrumb"> 
                                 <li>
-                                    <a href="<%= route %>"><%= name %> /</a>
+                                    <a href="/"><%= name %></a>
+                                    <span> / </span>
                                 </li>
                             </ol>
                             <div class="main-content">
@@ -17,4 +16,4 @@
                                 <p>I'm a Full-Stack developer with focus on Backend Programming.</p>
                                 <p>In my free time however, I enjoy learning about various subjects involving Artificial Intelligence and Machine Learning. Functional Programming is by far the most fun to me!</p>
                             </div>
-<%- include("global/footer"); -%>
+<%- include("../layouts/footer"); -%>

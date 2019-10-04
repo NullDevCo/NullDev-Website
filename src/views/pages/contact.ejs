@@ -1,7 +1,5 @@
-<%- include("global/header"); -%>
+<%- include("../layouts/header"); -%>
 <%  
-    let config = conf.getConfig();
-
     let name = config.meta.name;
 
     let breadcrumb = route.replace(/\//g, "");
@@ -9,7 +7,9 @@
 %>
                             <ol class="breadcrumb"> 
                                 <li>
-                                    <a href="<%= route %>"><%= name %> / <%= breadcrumb %></a>
+                                    <a href="/"><%= name %></a>
+                                    <span> / </span>
+                                    <a href="/contact">Contact</a>
                                 </li>
                             </ol>
                             <div class="main-content">
@@ -50,4 +50,4 @@
                                 <% } %>                                      
                                 </form>
                             </div>
-<%- include("global/footer"); -%>
+<%- include("../layouts/footer"); -%>
