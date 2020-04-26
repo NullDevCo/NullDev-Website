@@ -171,6 +171,9 @@ footer {
     margin: 20px 0;
     padding: 20px 0 0;
     font-size: 80%;
+    bottom: 20px;
+    width: 100%;
+    position: absolute;
 }
 
 .breadcrumb {
