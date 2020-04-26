@@ -10,6 +10,7 @@ config.json
 
 # Blog Dist
 dist_blog/
+dist_entries/
 
 # VSCode
 .vscode/
