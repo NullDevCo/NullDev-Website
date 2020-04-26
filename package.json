@@ -7,8 +7,9 @@
     "start": "cross-env NODE_ENV=production node ./src/app.js",
     "lint": "eslint ./src",
     "dev": "npm run lint && cross-env NODE_ENV=development node ./src/app.js",
-    "blog-build": "cd ./blogposts && rm -rf ../dist_blog && techy --dest ../dist_blog",
-    "blog-build-windows": "rd _dist /Q /S && cd blogposts && techy --dest ../dist_blog || cd blogposts && techy --dest ../dist_blog"
+    "build-entries": "rm -rf ../dist_entries && node ./scripts/compileScripts.js",
+    "blog-build-linux": "cd ./blogposts && rm -rf ../dist_blog && techy --dest ../dist_blog && rm -rf ../dist_entries && npm run build-entries",
+    "blog-build-windows": "rd _dist /Q /S && cd blogposts && techy --dest ../dist_blog || cd blogposts && techy --dest ../dist_blog && npm run build-entries"
   },
   "repository": {
     "type": "git",
