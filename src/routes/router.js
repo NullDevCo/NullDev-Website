@@ -74,10 +74,7 @@ module.exports = function(app){
             "routeTitle": "Blog",
             "route": req.path,
             "config": config,
-            "fs": fs,
             "path": path,
-            "log": log,
-            "blogFolder": path.resolve(__dirname, "..", "..", "dist_blog"),
             "csrfToken": req.csrfToken()
         });
     });
