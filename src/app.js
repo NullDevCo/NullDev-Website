@@ -99,8 +99,11 @@ app.use(flash());
 app.use(favicon("./src/assets/static/img/favicon.png"));
 
 app.use((req, res, next) => {
+    log.info("User Accessed: " + req.url);
     if (/\.min\.(css|js)$/.test(req.url)){
+        // @ts-ignore
         res.minifyOptions = res.minifyOptions || {};
+        // @ts-ignore
         res.minifyOptions.minify = false;
     }
     next();
@@ -111,9 +114,7 @@ app.use(express.static("./src/assets/static"));
 
 require("./routes/router")(app);
 
-process.on("unhandledRejection", (err, promise) => {
-    log.error(`Unhandled rejection (promise: ${promise}, reason: ${err})`);
-});
+process.on("unhandledRejection", (err, promise) => log.error(`Unhandled rejection (promise: ${promise}, reason: ${err})`));
 
 app.listen(app.get("port"), (err) => {
     if (err){
